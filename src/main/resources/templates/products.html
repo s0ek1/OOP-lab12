@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Products</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0-alpha2/dist/css/bootstrap.css}">
+</head>
+<body>
+<div class="container"><br><br>
+
+<!--    a. список товарів для заданого найменування в порядку спадання терміну зберігання;-->
+    <form action="name_sort_product" method="post"><table>
+            <td><input type="text" name="product_name" placeholder="Name" class="input-group-text" th:attr="style='width: 202px;'" required></td>
+            <td><input type="submit" value="Sort" class="btn btn-dark "></td></table>
+    </form>
+
+<!--    b. список товарів для заданого найменування, ціна яких не перевищує задану;-->
+    <form action="name_price_sort_product" method="post"><table>
+        <td><input type="text" name="product_name" placeholder="Name" class="input-group-text" th:attr="style='width: 100px;'" required></td>
+        <td><input type="number" name="product_price" placeholder="Price" class="input-group-text" th:attr="style='width: 100px;'" required></td>
+        <td><input type="submit" value="Sort" class="btn btn-dark "></td></table>
+    </form>
+
+<!--    c. список товарів, термін зберігання яких більше заданого;-->
+    <form action="term_sort_product" method="post"><table>
+        <td><input type="date" name="product_term" placeholder="Term" class="input-group-text" th:attr="style='width: 202px;'" required></td>
+        <td><input type="submit" value="Sort" class="btn btn-dark "></td></table>
+    </form>
+
+<!--    d. список товарів, впорядкований за зростанням вартості (кількість * ціна)-->
+    <form action="price_sort_product" method="post">
+        <input type="submit" value="Sort by Price" class="btn btn-dark" th:attr="style='width: 202px;'"></td>
+    </form>
+
+<h1 th:text="Products"></h1>
+
+<table class="table table-sm table-hover table-bordered table-success text-center">
+    <thead class="table-dark">
+  <tr >
+    <th>#</th>
+    <th>Name</th>
+    <th>Manufacturer</th>
+    <th>Price</th>
+    <th>Term</th>
+    <th>Count</th>
+    <th></th>
+  </tr>
+  </thead>
+    <tbody>
+        <tr th:each="p : ${products}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.manufacturer}"></td>
+        <td th:text="${p.price}"></td>
+        <td th:text="${p.term}"></td>
+        <td th:text="${p.count}"></td>
+        <!--    <td><a th:href="@{/delete_product(id=${p.id})}" class="btn btn-danger btn-sm">Delete</a></td>-->
+        <td><a th:href="@{/delete_product_v2(product_id=${p.id},product_name=${p.name},product_manufacturer=${p.manufacturer},product_price=${p.price},product_term=${p.term},product_count=${p.count})}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    <tr>
+        <form action="add_product" method="post" >
+            <td><input type="number" name="product_id" placeholder="id" class="input-group-text" required></td>
+            <td><input type="text" name="product_name" placeholder="Name" class="input-group-text" required></td>
+            <td><input type="text" name="product_manufacturer" placeholder="Manufacturer" class="input-group-text" required></td>
+            <td><input type="number" name="product_price" placeholder="Price" class="input-group-text" required></td>
+            <td><input type="date" name="product_term" placeholder="Term" class="input-group-text" required></td>
+            <td><input type="number" name="product_count" placeholder="Count" class="input-group-text" required></td>
+            <td><input type="submit" value="Add" class="btn btn-primary "></td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+    <a href="save_products" class="btn btn-sm btn-outline-info">Write to File</a>
+    <a href="read_products" class="btn btn-sm btn-outline-info">Read from File</a>
+    <a href="clear_products" class="btn btn-sm btn-outline-info">Clear</a>
+</div>
+        <script th:src="@{/webjars/jquery/3.6.4/dist/jquery.js}"></script>
+        <script th:src="@{/webjars/popperjs__core/2.11.7/dist/umd/popper.js}"></script>
+        <script th:src="@{/webjars/bootstrap/5.3.0-alpha2/dist/js/bootstrap.bundle.js}"></script>
+  </body>
+</html>
