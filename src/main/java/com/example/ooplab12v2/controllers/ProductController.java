@@ -70,7 +70,7 @@ public class ProductController {
 
     @GetMapping("read_products")
     public String readProducts() {
-        productSerivce.readFromFile();
+        productSerivce.refreshProductList();
         return "redirect:/products";
     }
 

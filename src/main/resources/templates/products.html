@@ -15,10 +15,10 @@
     </form>
 
 <!--    b. список товарів для заданого найменування, ціна яких не перевищує задану;-->
-    <form action="name_price_sort_product" method="post"><table>
+    <form action="name_price_sort_product" method="post"><table><tr>
         <td><input type="text" name="product_name" placeholder="Name" class="input-group-text" th:attr="style='width: 100px;'" required></td>
         <td><input type="number" name="product_price" placeholder="Price" class="input-group-text" th:attr="style='width: 100px;'" required></td>
-        <td><input type="submit" value="Sort" class="btn btn-dark "></td></table>
+        <td><input type="submit" value="Sort" class="btn btn-dark "></td></tr>  </table>
     </form>
 
 <!--    c. список товарів, термін зберігання яких більше заданого;-->
@@ -33,8 +33,11 @@
     </form>
 
 <h1 th:text="Products"></h1>
-
+    <a href="save_products" class="btn btn-sm btn-outline-info">Write to File</a>
+    <a href="read_products" class="btn btn-sm btn-outline-info">Read from File</a>
+    <a href="clear_products" class="btn btn-sm btn-outline-info my-2">Clear</a>
 <table class="table table-sm table-hover table-bordered table-success text-center">
+
     <thead class="table-dark">
   <tr >
     <th>#</th>
@@ -71,9 +74,7 @@
     </tr>
     </tbody>
 </table>
-    <a href="save_products" class="btn btn-sm btn-outline-info">Write to File</a>
-    <a href="read_products" class="btn btn-sm btn-outline-info">Read from File</a>
-    <a href="clear_products" class="btn btn-sm btn-outline-info">Clear</a>
+
 </div>
         <script th:src="@{/webjars/jquery/3.6.4/dist/jquery.js}"></script>
         <script th:src="@{/webjars/popperjs__core/2.11.7/dist/umd/popper.js}"></script>

@@ -20,19 +20,23 @@ public class ProductSerivce {
 
     @PostConstruct
     public void init() {
-
-//                products = new ArrayList<>(List.of(
-//                new Product(1,"Оселедець", "Norven", 119.50, LocalDate.of(2022, 12, 25), 45),
-//                new Product(2,"Шоколад", "Шоколад", 90.75, LocalDate.of(2022, 10, 15), 100),
-//                new Product(3,"Нaпій", "Pepsi", 27.60, LocalDate.of(2021, 12, 25), 37),
-//                new Product(4,"Йогурт", "Danone", 28.90, LocalDate.of(2023, 3, 15), 12),
-//                new Product(5,"Йогурт", "Марійка", 23.60, LocalDate.of(2023, 2, 25), 30),
-//                new Product(6,"Масло", "Ферма", 46.50, LocalDate.of(2023, 4, 25), 30),
-//                new Product(7,"Ковбаса", "Добров", 83.90, LocalDate.of(2023, 4, 5), 30),
-//                new Product(8,"Сік", "Sandora", 66.90, LocalDate.of(2022, 12, 15), 30),
-//                new Product(9,"Молоко", "Ферма", 33.40, LocalDate.of(2023, 11, 25), 43)
-//        ));
-
+        //getProductsFromHandWrite();
+        getProductsFromFile();
+    }
+    private void getProductsFromHandWrite() {
+        products = new ArrayList<>(List.of(
+        new Product(1,"Оселедець", "Norven", 119.50, LocalDate.of(2022, 12, 25), 45),
+        new Product(2,"Шоколад", "Шоколад", 90.75, LocalDate.of(2022, 10, 15), 100),
+        new Product(3,"Нaпій", "Pepsi", 27.60, LocalDate.of(2021, 12, 25), 37),
+        new Product(4,"Йогурт", "Danone", 28.90, LocalDate.of(2023, 3, 15), 12),
+        new Product(5,"Йогурт", "Марійка", 23.60, LocalDate.of(2023, 2, 25), 30),
+        new Product(6,"Масло", "Ферма", 46.50, LocalDate.of(2023, 4, 25), 30),
+        new Product(7,"Ковбаса", "Добров", 83.90, LocalDate.of(2023, 4, 5), 30),
+        new Product(8,"Сік", "Sandora", 66.90, LocalDate.of(2022, 12, 15), 30),
+        new Product(9,"Молоко", "Ферма", 33.40, LocalDate.of(2023, 11, 25), 43)
+        ));
+    }
+    private void getProductsFromFile() {
         try (BufferedReader reader = Files.newBufferedReader(Path.of("products.txt"))) {
             products = new ArrayList<>(reader.lines().map(line -> {
                 String[] s = line.split(";");
@@ -47,7 +51,9 @@ public class ProductSerivce {
         } catch (IOException e) {
             makeClear();
         }
-
+    }
+    public void refreshProductList() {
+        getProductsFromFile();
     }
 
     public void add(Product product) {
@@ -68,9 +74,6 @@ public class ProductSerivce {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-    public void readFromFile() {
-        init();
     }
     public void makeClear() {
         products = new ArrayList<>();
